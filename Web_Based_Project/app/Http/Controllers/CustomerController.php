@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class CustomerController extends Controller
 {
@@ -39,22 +41,24 @@ class CustomerController extends Controller
     {
         # customer_name', 'customer_email', 'customer_phone', 'customer_image','cutomer_username','cutomer_password', 'birthdate
         $request->validate([
-            'customer_name'          =>  'required',
-            'cutomer_phone'          =>  'required',
-            'cutomer_address'        => 'required',
-            'cutomer_username'       =>  'required',
-            'cutomer_password'       =>  'required',
-            'birthdate'              => 'required',
-            'customer_email'         =>  'required|email|unique:customers',
-            'customer_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+
+'customer_name'          =>  'required|string',
+'cutomer_phone'          =>  'required|string|unique:customers',
+'cutomer_address'        => 'required',
+'cutomer_username'       =>  'required',
+'cutomer_password'       => [ 'confirmed', Password::min(8)->letters()-> numbers()->mixedCase()->symbols()],
+'cutomer_password_confirmation'=>'required',
+'birthdate'              => 'required|date',
+'customer_email'         =>  'required|email|unique:customers|email:rfc,dns',
+'customer_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
         $file_name = time() . '.' . request()->customer_image->getClientOriginalExtension();
-
+        
         request()->customer_image->move(public_path('images'), $file_name);
 
         $customer = new Customer();
-
+      
         $customer->customer_name    = $request->customer_name;
         $customer->customer_email   = $request->customer_email;
         $customer->birthdate        = $request->birthdate;

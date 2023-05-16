@@ -25,3 +25,4 @@ Route::get('/', function () {
 
 Route::resource('customers', CustomerController::class);
 
+Route::get('/api_ops','App\Http\Controllers\Api_ops@callapi');
