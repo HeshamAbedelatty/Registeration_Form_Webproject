@@ -16,7 +16,10 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <h1>wellcome to lara</h1>
+        <h1>wellcome to our Registeration Form </h1>
+        <div class="col col-md-6">
+                <a href="{{ route('customers.index') }}" class="btn btn-primary btn-sm float-end">{{__('msg.View All')}}</a>
+            </div>
         <script src="" async defer></script>
     </body>
 </html>

@@ -26,3 +26,10 @@ Route::get('/', function () {
 Route::resource('customers', CustomerController::class);
 
 Route::get('/api_ops','App\Http\Controllers\Api_ops@callapi');
+
+Route::get('converter/{locale}', function ($locale) {
+    if (in_array($locale, ['ar', 'en'])) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('converter');
