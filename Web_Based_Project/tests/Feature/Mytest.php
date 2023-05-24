@@ -42,7 +42,7 @@ public function testRegistrationFormValidation()
     ]);
 }
 
-public function testDataRegistrationFormValidation()
+public function testdataRegistrationFormValidation()
 {
     $response = $this->post('/register', [
         'name' => 'John Doe',
