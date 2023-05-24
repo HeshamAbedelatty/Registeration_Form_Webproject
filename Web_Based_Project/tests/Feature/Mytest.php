@@ -42,4 +42,20 @@ public function testdataRegistrationFormValidation()
     ]);
 }
 
+public function testRegistrationFormValidation()
+{
+    $response = $this->post('/customers', [
+        'name' => '',
+        'email' => '',
+        'password' => '',
+        
+    ]);
+
+    $response->assertSessionHasErrors([
+        'name' => 'The name field is required.',
+        'email' => 'The email field is required.',
+        'password' => 'The password field is required.',
+    ]);
+}
+
 }
