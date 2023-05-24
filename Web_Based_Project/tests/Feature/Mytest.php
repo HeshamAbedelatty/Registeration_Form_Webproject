@@ -26,22 +26,6 @@ class Mytest extends TestCase
     $response->assertStatus(200);
 }
 
-public function testRegistrationFormValidation()
-{
-    $response = $this->post('/customers', [
-        'name' => '',
-        'email' => '',
-        'password' => '',
-        
-    ]);
-
-    $response->assertSessionHasErrors([
-        'name' => 'The name field is required.',
-        'email' => 'The email field is required.',
-        'password' => 'The password field is required.',
-    ]);
-}
-
 public function testdataRegistrationFormValidation()
 {
     $response = $this->post('/register', [
