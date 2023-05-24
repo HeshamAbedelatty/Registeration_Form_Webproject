@@ -42,4 +42,20 @@ public function testRegistrationFormValidation()
     ]);
 }
 
+public function testDataRegistrationFormValidation()
+{
+    $response = $this->post('/register', [
+        'name' => 'John Doe',
+        'email' => 'invalid-email',
+        'password' => '123',
+    
+    ]);
+
+    $response->assertSessionHasErrors([
+        'email' => 'The email must be a valid email address.',
+        'password' => 'The password must be at least 8 characters.',
+        
+    ]);
+}
+
 }
